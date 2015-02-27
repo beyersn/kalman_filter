@@ -1,0 +1,29 @@
+CC     = "C:\Program Files (x86)\MATLAB\R2012b\sys\lcc\bin\lcc.exe"
+LD     = "C:\Program Files (x86)\MATLAB\R2012b\sys\lcc\bin\lcclnk.exe"
+LIBCMD = "C:\Program Files (x86)\MATLAB\R2012b\sys\lcc\bin\lcclib.exe"
+CFLAGS = -c -Zp8 -DMATLAB_MEX_FILE -noregistrylookup
+LDFLAGS = -s -dll -L"C:\Program Files (x86)\MATLAB\R2012b\sys\lcc\lib"
+LIBFLAGS = 
+
+OBJECTS = \
+	"Control_System_Library_sfun.obj"\
+	"c3_Control_System_Library.obj"\
+	"c4_Control_System_Library.obj"\
+	"c5_Control_System_Library.obj"\
+	"c7_Control_System_Library.obj"\
+
+INCLUDE_PATH= -I"C:\Program Files (x86)\MATLAB\R2012b\sys\lcc\include"  -I"C:\Program Files (x86)\MATLAB\R2012b\extern\include"  -I"C:\Program Files (x86)\MATLAB\R2012b\simulink\include"  -I"C:\Program Files (x86)\MATLAB\R2012b\stateflow\c\mex\include"  -I"C:\Program Files (x86)\MATLAB\R2012b\stateflow\c\debugger\include" 
+ 
+
+Control_System_Library_sfun.lib : $(MAKEFILE) $(OBJECTS)
+	$(LIBCMD) $(LIBFLAGS) /OUT:Control_System_Library_sfun.lib *.obj
+Control_System_Library_sfun.obj :	"Control_System_Library_sfun.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "Control_System_Library_sfun.c"
+c3_Control_System_Library.obj :	"c3_Control_System_Library.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c3_Control_System_Library.c"
+c4_Control_System_Library.obj :	"c4_Control_System_Library.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c4_Control_System_Library.c"
+c5_Control_System_Library.obj :	"c5_Control_System_Library.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c5_Control_System_Library.c"
+c7_Control_System_Library.obj :	"c7_Control_System_Library.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c7_Control_System_Library.c"

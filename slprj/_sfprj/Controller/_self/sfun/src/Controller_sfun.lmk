@@ -1,0 +1,37 @@
+CC     = "C:\Program Files (x86)\MATLAB\R2012b\sys\lcc\bin\lcc.exe"
+LD     = "C:\Program Files (x86)\MATLAB\R2012b\sys\lcc\bin\lcclnk.exe"
+LIBCMD = "C:\Program Files (x86)\MATLAB\R2012b\sys\lcc\bin\lcclib.exe"
+CFLAGS = -c -Zp8 -DMATLAB_MEX_FILE -noregistrylookup
+LDFLAGS = -s -dll -L"C:\Program Files (x86)\MATLAB\R2012b\sys\lcc\lib"
+LIBFLAGS = 
+
+OBJECTS = \
+	"Controller_sfun.obj"\
+	"Controller_sfun_registry.obj"\
+	"c3_Controller.obj"\
+	"lccstub.obj"\
+	"\\mtucifs2.iso.mtu.edu\home\OCULUS ADAC\slprj\_sfprj\Controller\Control_System_Library\sfun\src\Control_System_Library_sfun.lib"\
+	"C:\Program Files (x86)\MATLAB\R2012b\sys\lcc\mex\lccdef.def"\
+	"C:\Program Files (x86)\MATLAB\R2012b\stateflow\c\debugger\lib\win32\sfc_debuglcc.lib"\
+	"C:\Program Files (x86)\MATLAB\R2012b\stateflow\c\mex\lib\win32\sfc_mexlcc.lib"\
+	"C:\Program Files (x86)\MATLAB\R2012b\extern\lib\win32\lcc\libmex.lib"\
+	"C:\Program Files (x86)\MATLAB\R2012b\extern\lib\win32\lcc\libmx.lib"\
+	"C:\Program Files (x86)\MATLAB\R2012b\extern\lib\win32\lcc\libfixedpoint.lib"\
+	"C:\Program Files (x86)\MATLAB\R2012b\extern\lib\win32\lcc\libut.lib"\
+	"C:\Program Files (x86)\MATLAB\R2012b\extern\lib\win32\lcc\libmwmathutil.lib"\
+	"C:\Program Files (x86)\MATLAB\R2012b\extern\lib\win32\lcc\libemlrt.lib"\
+	"C:\Program Files (x86)\MATLAB\R2012b\extern\lib\win32\lcc\libmwblascompat32.lib"\
+
+INCLUDE_PATH= -I"C:\Program Files (x86)\MATLAB\R2012b\sys\lcc\include"  -I"C:\Program Files (x86)\MATLAB\R2012b\extern\include"  -I"C:\Program Files (x86)\MATLAB\R2012b\simulink\include"  -I"C:\Program Files (x86)\MATLAB\R2012b\stateflow\c\mex\include"  -I"C:\Program Files (x86)\MATLAB\R2012b\stateflow\c\debugger\include" 
+ 
+
+Controller_sfun.mexw32 : $(MAKEFILE) $(OBJECTS)
+	$(LD) $(LDFLAGS) -o Controller_sfun.mexw32 @Controller_sfun.lmko
+Controller_sfun.obj :	"Controller_sfun.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "Controller_sfun.c"
+Controller_sfun_registry.obj :	"Controller_sfun_registry.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "Controller_sfun_registry.c"
+c3_Controller.obj :	"c3_Controller.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c3_Controller.c"
+lccstub.obj :	"C:\Program Files (x86)\MATLAB\R2012b\sys\lcc\mex\lccstub.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "C:\Program Files (x86)\MATLAB\R2012b\sys\lcc\mex\lccstub.c"

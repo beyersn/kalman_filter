@@ -1,0 +1,9 @@
+libemlrt.lib
+libut.lib
+libmwblas.lib
+libmwmathutil.lib
+/export:mexFunction
+/export:emlrtMexFcnProperties
+/export:SGP4_Setup
+/export:SGP4_Setup_initialize
+/export:SGP4_Setup_terminate
