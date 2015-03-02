@@ -7,7 +7,6 @@ for i=1:30
 
 %% Set Simulation Constants
 clearvars -except i
-global satrec gravc
 
 % Gyro Constants
 w_bias = 0*[0.5 0.2 0.15];     % rad/s
@@ -19,19 +18,19 @@ B_bias = [0 0 0];               % Tesla
 B_noise = ((1*0.0052)/1E5)^2;                % Tesla^2
 
 % Randomized
-rand_w_x=rand*.2;
-rand_w_y=rand*.2;
-rand_w_z=rand*.2;
+rand_w_x=rand*.1;
+rand_w_y=rand*.1;
+rand_w_z=rand*.1;
 w_init_s = [rand_w_x rand_w_y rand_w_z];	% rad/s
-init_attitude=rand(1,4);
+init_attitude=[1 0 0 0]+rand(1,4)*.5-.25;  % changed to reduce the initial error
 init_attitude=init_attitude/norm(init_attitude);
 q_i_s0 = init_attitude;
-%[longstr1,longstr2, rand_TLE]=GetTLE(0);
+[longstr1,longstr2, rand_TLE]=GetTLE(0);
 
 % Constant
 %w_init_s = [.046 .17 .039];	% rad/s
 %q_i_s0 = [1 0 0 0];
-[longstr1,longstr2, rand_TLE]=GetTLE(3);
+%[longstr1,longstr2, rand_TLE]=GetTLE(3);
 
 % Operating Enviroment
 Mean_Velocity=norm(w_init_s);
@@ -44,7 +43,14 @@ q_s_c = [1 0 0 0];
 Torque_s = [0 0 0];
 I_c = [3.4 3.4 1.9];
 
-%Select the TLE
+A=mat2str(w_init_s,2);
+B=num2str(Mean_Velocity);
+C=int2str(rand_TLE);
+D=mat2str(init_attitude,2);
+E=int2str(i);
+
+fprintf('Initializing run %s.\n Initial angular rates: %s. Average: %s.\n Initial attitude: %s.\n TLE: %s.\n\n',E,A,B,D,C); 
+
 
 
 % Initialize the SGP4 propagator
@@ -160,11 +166,6 @@ xlabel('Time (seconds)');
 ylabel('Euler Angle Error Magnitude (degrees)');
 legend('Error Magnitude');
 PrettyUpPlot
-
-A=mat2str(w_init_s,2);
-B=num2str(Mean_Velocity);
-C=int2str(rand_TLE);
-D=mat2str(init_attitude,2);
 
 saveas(h,sprintf('w %s, Mean Velocity %s, TLE %s Attitude Guess %s.png',A,B,C,D));
 close(h);
